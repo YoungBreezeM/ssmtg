@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Student implements Serializable {
     private Integer id;
     private String name;
-    private Integer age;
+    private Double money;
 
     public Integer getId() {
         return id;
@@ -23,12 +23,18 @@ public class Student implements Serializable {
         this.name = name;
     }
 
-    public Integer getAge() {
-        return age;
+    public Double getMoney() {
+        return money;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setMoney(Double money) {
+        this.money = money;
+    }
+
+    public Student(Integer id, String name, Double money) {
+        this.id = id;
+        this.name = name;
+        this.money = money;
     }
 
     @Override
@@ -36,7 +42,7 @@ public class Student implements Serializable {
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", age=" + age +
+                ", money=" + money +
                 '}';
     }
 }

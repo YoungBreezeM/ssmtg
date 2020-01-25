@@ -28,7 +28,7 @@
     <mvc:annotation-driven></mvc:annotation-driven>
 
     <!--  前端控制器  放行静态文件-->
-    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+    <mvc:default-servlet-handler default-servlet-name="default"></mvc:default-servlet-handler>
     <!--    自定义类型装换器-->
 <!--    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">-->
 <!--        <property name="converters">-->
@@ -45,10 +45,24 @@
 <!--    &lt;!&ndash;    异常处理配置&ndash;&gt;-->
 <!--    <bean id="sysExceptionResolve" class="com.fw.exception.SysExceptionResolve"></bean>-->
 <!--    &lt;!&ndash;    配置拦截器&ndash;&gt;-->
-<!--    <mvc:interceptors>-->
-<!--        <mvc:interceptor>-->
-<!--            <mvc:mapping path="/ user/*"/>-->
-<!--            <bean id="interceptor" class="com.fw.utils.Interceptor"/>-->
-<!--        </mvc:interceptor>-->
-<!--    </mvc:interceptors>-->
+    <mvc:interceptors>
+<!--        登陆拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/logout"/>
+            <mvc:exclude-mapping path="/msg/*"/>
+            <bean id="loginInterceptor" class="com.fw.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+<!--权限拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/msg/*"/>
+            <mvc:exclude-mapping path="/logout"/>
+            <mvc:exclude-mapping path="/user/start"/>
+            <mvc:exclude-mapping path="/user/stop"/>
+            <bean id="permissionInterceptor" class="com.fw.interceptor.PermissionInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

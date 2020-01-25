@@ -12,15 +12,32 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     @Resource(name = "studentDao")
     private StudentDao studentDao;
+
+
     @Override
-    public List<Student> findAll() {
-        System.out.println("查找了信息");
-        return studentDao.findAll();
+    public void updateStudent(Student student) {
+        studentDao.updateStudent(student);
+    }
+
+
+    @Override
+    public boolean transfer(Student source, Student target, Double money) {
+        source.setMoney(source.getMoney()-money);
+        //更新发送方
+        studentDao.updateStudent(source);
+        List<Student> students = this.findAllStudent();
+        System.out.println(students);
+//        int i =1/0;
+        //更新接受方
+        target.setMoney(target.getMoney()+money);
+        studentDao.updateStudent(target);
+        return true;
     }
 
     @Override
-    public void saveInfo(Student student) {
-        System.out.println("保存了信息");
-        studentDao.saveInfo(student);
+    public List<Student> findAllStudent() {
+        return studentDao.findAllStudent();
     }
+
+
 }

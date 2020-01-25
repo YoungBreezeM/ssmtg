@@ -14,17 +14,28 @@ public class StudentServiceTest {
 //    @Autowired
 //    private ApplicationContext applicationContext =null;
 
-    /**
-     * 查找所有用户
-     * */
-    @Test
-    public void testFindAll(){
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
-        StudentService studentService= applicationContext.getBean("studentServiceImpl", StudentService.class);
-        List<Student> students = studentService.findAll() ;
-        for(Student student:students){
-            System.out.println(student);
-        }
+   /**
+    * 更新用户
+    * */
+   @Test
+   public void updateStudent(){
+       ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+       StudentService studentService= applicationContext.getBean("studentServiceImpl", StudentService.class);
+       Student student = new Student(1,"uqf",1000.00);
+       studentService.updateStudent(student);
+   }
 
-    }
+   /**
+    * 转账
+    * */
+   @Test
+    public void transfer(){
+       ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+       StudentService studentService= applicationContext.getBean("studentServiceImpl", StudentService.class);
+       Student source = new Student(1,"yqf",1000.00);
+       Student target = new Student(2,"yqf",1000.00);
+       Boolean rs= studentService.transfer(source,target,300.00);
+       System.out.println(rs);
+   }
+
 }

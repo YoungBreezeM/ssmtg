@@ -46,12 +46,13 @@
     <!--事物通知-->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="find/*" read-only="true"/>
-            <tx:method name="/*" read-only="false" isolation="DEFAULT"/>
+            <tx:method name="find/*" read-only="true"  propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+            <tx:method name="/*" read-only="false" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
         </tx:attributes>
     </tx:advice>
     <!--Aop 事物增强 配置切入点-->
     <aop:config>
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.fw.service.impl.*ServiceImpl.*(..))"></aop:advisor>
     </aop:config>
+
 </beans>
